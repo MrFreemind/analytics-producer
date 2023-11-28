@@ -23,10 +23,15 @@ jobs:
         uses: 'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          tag-prefix: 'v'
+          version-type:  'minor'
         with:
           skip-tag: 'true'
           commit-message: 'CI: bumps version to {{version}} [skip ci]'
+          # overriding default triggers
+          minor-wording: 'gi4ugi4ubgi4u'
+          major-wording: 'gi4ugi4ubgi4u'
+          patch-wording: 'gi4ugi4ubgi4u'
+          rc-wording: 'gi4ugi4ubgi4u'
       - name: 'cat package.json'
         run: cat ./package.json
       - name: 'Output Step'
