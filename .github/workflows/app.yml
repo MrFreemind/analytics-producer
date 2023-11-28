@@ -60,7 +60,6 @@ jobs:
       - run: npm run build
       - run: npm run release
       - run: npm ci
-      - run: npm version $(git describe --tags)
-      - run: npm publish --tag $(git describe --tags)
+      - run: npm publish --tag fw3fw3f3
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
