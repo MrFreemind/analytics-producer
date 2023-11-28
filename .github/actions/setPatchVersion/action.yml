@@ -7,4 +7,4 @@ inputs:
     default: '999'
 runs:
   using: 'node20'
-  main: 'githubActions/setPatchVersion.js'
+  main: './setPatchVersion.js'
