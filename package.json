@@ -1,0 +1,27 @@
+{
+  "name": "@mrfreemind/analytics-producer-example",
+  "version": "1.0.14",
+  "description": "",
+  "main": "dist/index.js",
+  "scripts": {
+    "test": "tsc --build",
+    "build": "node scripts/build.js",
+    "release": "tsc --project tsconfig.build.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MrFreemind/analytics-producer-example.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/MrFreemind/analytics-producer-example/issues"
+  },
+  "homepage": "https://github.com/MrFreemind/analytics-producer-example#readme",
+  "publishConfig": {
+    "@mrfreemind:registry": "https://npm.pkg.github.com"
+  },
+  "devDependencies": {
+    "typescript": "^5.3.2"
+  }
+}
