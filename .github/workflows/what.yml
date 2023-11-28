@@ -1,4 +1,4 @@
-name: What do you want from me god
+name: 'Bump Version'
 
 on:
   push:
@@ -14,7 +14,7 @@ jobs:
 
     steps:
       - name: 'Checkout source code'
-        uses: 'actions/checkout@v3'
+        uses: 'actions/checkout@v2'
         with:
           ref: ${{ github.ref }}
       - name: 'cat package.json'
@@ -24,9 +24,10 @@ jobs:
         uses: 'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          tag-prefix: 'v'
         with:
           skip-tag: 'true'
-          commit-message: 'CI: bumps version to {{version}} [run-release-pipe]'
+          commit-message: 'CI: bumps version to {{version}} [skip ci]'
       - name: 'cat package.json'
         run: cat ./package.json
       - name: 'Output Step'
@@ -51,7 +52,6 @@ jobs:
           npm run build
           npm run release
           echo "done!"
-
   publish-gpr:
     needs: build
     runs-on: ubuntu-latest
