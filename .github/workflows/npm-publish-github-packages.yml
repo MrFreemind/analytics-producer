@@ -23,9 +23,9 @@ jobs:
         uses: 'phips28/gh-action-bump-version@master'
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-          version-type:  'minor'
         with:
           skip-tag: 'true'
+          version-type: 'minor'
           commit-message: 'CI: bumps version to {{version}} [skip ci]'
           # overriding default triggers
           minor-wording: 'gi4ugi4ubgi4u'
