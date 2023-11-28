@@ -1,0 +1,10 @@
+name: 'Set patch version'
+description: 'Greet someone and record the time'
+inputs:
+  version:
+    description: 'Patch version'
+    required: true
+    default: '999'
+runs:
+  using: 'node20'
+  main: 'githubActions/setPatchVersion.js'
