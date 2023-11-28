@@ -42,4 +42,17 @@ jobs:
         uses: ./.github/actions/setPatchVersion
         with:
           version: '999'
+      - name: Publish it please
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          registry-url: https://npm.pkg.github.com/
+      - run: npm i
+      - run: npm test
+      - run: npm run build
+      - run: npm run release
+      - run: npm ci
+      - run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
 
