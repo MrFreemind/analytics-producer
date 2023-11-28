@@ -60,8 +60,8 @@ jobs:
       - run: npm run build
       - run: npm run release
       - run: npm ci
-      - run: npm dist-tag add @mrfreemind/analytics-producer-example@1.0.17 3iugoi
-        
+      - run: npm dist-tag add @mrfreemind/analytics-producer@1.0.17 3iugoi
+
         #      - run: npm publish --tag fw3fw3f3
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
