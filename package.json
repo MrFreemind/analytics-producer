@@ -1,6 +1,6 @@
 {
   "name": "@mrfreemind/analytics-producer",
-  "version": "1.0.17",
+  "version": "1.0.17-1-g7dda068",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
