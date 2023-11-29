@@ -20,6 +20,10 @@ try {
   const nextPatchVersionFromAction = core.getInput('version');
   const nextPatchVersion = 34;
 
+  console.log('run_attempt', core.getInput('run_attempt'))
+  console.log('run_id', core.getInput('run_id'))
+  console.log('run_number', core.getInput('run_number'))
+
   console.log({ nextPatchVersionFromAction, nextPatchVersion })
 
   const pkg = getPackageJson();

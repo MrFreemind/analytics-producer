@@ -5,6 +5,18 @@ inputs:
     description: 'Patch version'
     required: true
     default: '999'
+  run_attempt:
+    description: 'Run attempt'
+    required: true
+    default: '1'
+  run_id:
+    description: 'Run id'
+    required: true
+    default: '1'
+  run_number:
+    description: 'Run number'
+    required: true
+    default: '1'
 runs:
   using: 'node20'
   main: './setPatchVersion.js'
