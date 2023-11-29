@@ -34,32 +34,26 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+      - name: Install dependencies
+        working-directory: .
+        run: |-
+          npm i
+      - name: Use local action
+        uses: ./.github/actions/setPatchVersion
         with:
-          ref: 'main'
-
-      - name: get-npm-version
-        id: package-version
-        uses: martinbeentjes/npm-get-version-action@v1.3.1
-
-      - name: Build
-        run: echo ${{ github.sha }} > Release.txt
-      - name: Test
-        run: cat Release.txt
-      - name: Release
-        uses: softprops/action-gh-release@v1
-        with:
-          files: Release.txt
-          name: "${{ steps.package-version.outputs.current-version}}"
-          tag_name: "${{ steps.package-version.outputs.current-version}}"
-
-      - uses: actions/setup-node@v3
+          version: ${{ github.event.number }}
+          run_number: ${{ github.run_number }}
+      - name: Publish it please
+        uses: actions/setup-node@v3
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
       - run: npm i
+      - run: npm test
       - run: npm run build
       - run: npm run release
       - run: npm ci
-#      - run: npm dist-tag add @mrfreemind/analytics-producer@1.0.17 3iugoiqw23
+      - run: npm publish -f
         env:
           NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+
