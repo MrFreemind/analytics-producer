@@ -45,11 +45,19 @@ try {
   const octokit = new github.getOctokit(process.env.GITHUB_TOKEN);
 
   console.log('Trying to send')
-  const new_comment = octokit.issues.createComment({
-    owner: payload.repository.owner,
-    repo: payload.repository.name,
-    issue_number: payload.issue.number,
-    body: `Some random stuff in comment?`,
+  // const new_comment = octokit.issues.createComment({
+  //   owner: payload.repository.owner,
+  //   repo: payload.repository.name,
+  //   issue_number: payload.issue.number,
+  //   body: `Some random stuff in comment?`,
+  // });
+  //
+  const { pull_request } = github.context.payload;
+
+  await octokit.rest.issues.createComment({
+    ...github.context.repo,
+    issue_number: pull_request.number,
+    body: `Some random stuff in comment?`
   });
 
   console.log('new_comment', new_comment);
