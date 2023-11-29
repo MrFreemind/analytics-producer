@@ -3,7 +3,8 @@ const github = require('@actions/github');
 const path = require('path');
 const { existsSync, readFileSync, writeFileSync } = require('fs');
 
-
+let packageName = '';
+let nextVersion = ''
 
 const workspace = process.env.GITHUB_WORKSPACE || path.dirname(__dirname);
 console.log('process.env.GITHUB_WORKSPACE', process.env.GITHUB_WORKSPACE);
@@ -24,9 +25,11 @@ try {
 
   const pkg = getPackageJson();
 
+  packageName = pkg.name;
+
   const [major] = pkg.version.split('.');
 
-  const nextVersion = `${Number(major) - 1}.${nextMinorVersion}.${nextPatchVersion}`;
+  nextVersion = `${Number(major) - 1}.${nextMinorVersion}.${nextPatchVersion}`;
 
   const file = readFileSync(path.join(workspace, 'package.json'), 'utf-8');
   const newFile = file.replace(pkg.version, nextVersion);
@@ -36,6 +39,32 @@ try {
   // Get the JSON webhook payload for the event that triggered the workflow
   const payload = JSON.stringify(github.context.payload, undefined, 2)
   console.log(`The event payload: ${payload}`);
+} catch (error) {
+  core.setFailed(error.message);
+}
+
+try {
+  const payload = github.context.payload;
+  const octokit = new github.getOctokit(process.env.GITHUB_TOKEN);
+
+  console.log('Trying to send')
+  // const new_comment = octokit.issues.createComment({
+  //   owner: payload.repository.owner,
+  //   repo: payload.repository.name,
+  //   issue_number: payload.issue.number,
+  //   body: `Some random stuff in comment?`,
+  // });
+  //
+  const { pull_request } = github.context.payload;
+
+  octokit.rest.issues.createComment({
+    ...github.context.repo,
+    issue_number: pull_request.number,
+    body: `Latest version is:
+\`npm install ${packageName}@${nextVersion}\``});
+
+  console.log('Send it?')
+
 } catch (error) {
   core.setFailed(error.message);
 }
