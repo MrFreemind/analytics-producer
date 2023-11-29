@@ -41,9 +41,7 @@ jobs:
       - name: Use local action
         uses: ./.github/actions/setPatchVersion
         with:
-          version: '999'
-          run_attempt: ${{ github.run_attempt }}
-          run_id: ${{ github.run_id }}
+          version: ${{ github.event.number }}
           run_number: ${{ github.run_number }}
       - name: Publish it please
         uses: actions/setup-node@v3
