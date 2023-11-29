@@ -60,7 +60,6 @@ try {
     body: `Some random stuff in comment?`
   });
 
-  console.log('new_comment', new_comment);
   console.log('Send it?')
 
 } catch (error) {
