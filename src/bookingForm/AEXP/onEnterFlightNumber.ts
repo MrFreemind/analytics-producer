@@ -7,7 +7,7 @@ export type Data = {
 }
 
 const example: Data = {
-    flightNumber: 123,
+    flightNumber: '123',
     userId: 123,
     flowUuid: '123qwe-qwe'
 }
