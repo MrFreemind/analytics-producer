@@ -54,7 +54,7 @@ try {
   //
   const { pull_request } = github.context.payload;
 
-  await octokit.rest.issues.createComment({
+  octokit.rest.issues.createComment({
     ...github.context.repo,
     issue_number: pull_request.number,
     body: `Some random stuff in comment?`
