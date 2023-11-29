@@ -1,5 +1,8 @@
 name: YesYesYes
 
+env:
+  GITHUB_TOKEN: ${{ secrets.TOKEN }}
+
 on:
   pull_request:
     types:
