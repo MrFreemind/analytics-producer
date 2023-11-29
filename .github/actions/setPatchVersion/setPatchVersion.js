@@ -3,7 +3,8 @@ const github = require('@actions/github');
 const path = require('path');
 const { existsSync, readFileSync, writeFileSync } = require('fs');
 
-
+let packageName = '';
+let nextVersion = ''
 
 const workspace = process.env.GITHUB_WORKSPACE || path.dirname(__dirname);
 console.log('process.env.GITHUB_WORKSPACE', process.env.GITHUB_WORKSPACE);
@@ -24,9 +25,11 @@ try {
 
   const pkg = getPackageJson();
 
+  packageName = pkg.name;
+
   const [major] = pkg.version.split('.');
 
-  const nextVersion = `${Number(major) - 1}.${nextMinorVersion}.${nextPatchVersion}`;
+  nextVersion = `${Number(major) - 1}.${nextMinorVersion}.${nextPatchVersion}`;
 
   const file = readFileSync(path.join(workspace, 'package.json'), 'utf-8');
   const newFile = file.replace(pkg.version, nextVersion);
@@ -57,8 +60,8 @@ try {
   octokit.rest.issues.createComment({
     ...github.context.repo,
     issue_number: pull_request.number,
-    body: `Some random stuff in comment?`
-  });
+    body: `Latest version is:
+\`npm install ${packageName}@${nextVersion}\``});
 
   console.log('Send it?')
 
