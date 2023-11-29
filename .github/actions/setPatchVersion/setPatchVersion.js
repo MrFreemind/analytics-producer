@@ -56,5 +56,5 @@ try {
   console.log('Send it?')
 
 } catch (error) {
-  // core.setFailed(error.message);
+  core.setFailed(error.message);
 }
