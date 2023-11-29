@@ -3,6 +3,8 @@ const github = require('@actions/github');
 const path = require('path');
 const { existsSync, readFileSync, writeFileSync } = require('fs');
 
+
+
 const workspace = process.env.GITHUB_WORKSPACE || path.dirname(__dirname);
 console.log('process.env.GITHUB_WORKSPACE', process.env.GITHUB_WORKSPACE);
 console.log('workspace', workspace);
@@ -24,11 +26,16 @@ try {
 
   const [major] = pkg.version.split('.');
 
-  const nextVersion = `${major}.${nextMinorVersion}.${nextPatchVersion}`;
+  const nextVersion = `${Number(major) - 1}.${nextMinorVersion}.${nextPatchVersion}`;
 
   const file = readFileSync(path.join(workspace, 'package.json'), 'utf-8');
   const newFile = file.replace(pkg.version, nextVersion);
   writeFileSync(path.join(workspace, 'package.json'), newFile, 'utf-8');
+
+  core.setOutput("time", 'yes');
+  // Get the JSON webhook payload for the event that triggered the workflow
+  const payload = JSON.stringify(github.context.payload, undefined, 2)
+  console.log(`The event payload: ${payload}`);
 } catch (error) {
   core.setFailed(error.message);
 }
