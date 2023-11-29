@@ -39,3 +39,22 @@ try {
 } catch (error) {
   core.setFailed(error.message);
 }
+
+try {
+  const payload = github.context.payload;
+  const octokit = new github.getOctokit(process.env.GITHUB_TOKEN);
+
+  console.log('Trying to send')
+  const new_comment = octokit.issues.createComment({
+    owner: payload.repository.owner,
+    repo: payload.repository.name,
+    issue_number: payload.issue.number,
+    body: `Some random stuff in comment?`,
+  });
+
+  console.log('new_comment', new_comment);
+  console.log('Send it?')
+
+} catch (error) {
+  // core.setFailed(error.message);
+}
