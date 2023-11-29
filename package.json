@@ -6,8 +6,7 @@
   "scripts": {
     "test": "tsc --build",
     "build": "node scripts/build.js",
-    "release": "tsc --project tsconfig.build.json",
-    "postinstall": "npm run build && npm run release"
+    "release": "tsc --project tsconfig.build.json"
   },
   "repository": {
     "type": "git",
